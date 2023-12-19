@@ -7,7 +7,9 @@ import {
   Modal, Form, Input, Button, Select
 } from 'antd';
 import { useSelector } from 'react-redux';
-import { GetData, PostData, GetDataByID } from '../API/api';
+import {
+  GetData, PatchData, PostData, GetDataByID
+} from '../API/api';
 import Notification from '../components/Notification';
 
 const { Option } = Select;
@@ -55,7 +57,7 @@ function Calendar() {
         title,
         attendees,
         start: info.startStr,
-        end: info.endStr,
+        end: info.endStGetDatar,
         allDay: info.allDay,
       });
     }
@@ -70,6 +72,11 @@ function Calendar() {
   const handleDateSelect = (selectInfo) => {
     setVisible(true);
     setInfo(selectInfo);
+  };
+
+  const setMeetingStatus = async (status) => {
+    console.log(status);
+    await PatchData(`attendees/${Id}`, status);
   };
 
   const handleEventClick = (clickInfo) => {
@@ -177,13 +184,11 @@ function Calendar() {
                     </p>
                   </div>
                   <div className="p-4 flex justify-end">
-                    <Button className="login-form-button text-white border-[#008080] bg-[#008080] hover:bg-[#20B2AA] hover:!text-white hover:!border-[#20B2AA]">
+                    <Button onClick={() => setMeetingStatus(true)} className="login-form-button text-white border-[#008080] bg-[#008080] hover:bg-[#20B2AA] hover:!text-white hover:!border-[#20B2AA]">
                       Accept
-
                     </Button>
-                    <Button className="ml-2 login-form-button text-white border-[#008080] bg-[#008080] hover:bg-[#20B2AA] hover:!text-white hover:!border-[#20B2AA]">
+                    <Button onClick={() => setMeetingStatus(true)} className="ml-2 login-form-button text-white border-[#008080] bg-[#008080] hover:bg-[#20B2AA] hover:!text-white hover:!border-[#20B2AA]">
                       Reject
-
                     </Button>
                   </div>
                 </div>

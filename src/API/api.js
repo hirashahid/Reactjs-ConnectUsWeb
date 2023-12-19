@@ -52,3 +52,14 @@ export const PutData = (route, values) => fetch(
     },
   }
 );
+
+export const PatchData = (route, status) => fetch(
+  `${process.env.REACT_APP_BASEURL}${route}`,
+  {
+    method: 'PATCH',
+    body: JSON.stringify(status),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+);
